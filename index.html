@@ -404,6 +404,50 @@ body .card h3 { background: linear-gradient(90deg,color-mix(in srgb,var(--b) 12%
 .stats .st { background: linear-gradient(160deg,#fff,color-mix(in srgb,var(--b) 5%,#fff)) padding-box,linear-gradient(135deg,var(--b),var(--p),var(--pk,var(--p))) border-box !important; }
 .stats .st b { background: linear-gradient(120deg,var(--b),var(--p)); -webkit-background-clip:text; background-clip:text; color:transparent; -webkit-text-fill-color:transparent; }
 
+
+/* ===== Performance pass: fast, lightweight header entrance ===== */
+@media screen {
+  :root { --intro: 0s; }
+  /* Do not animate the whole page or delay the toolbar/content. */
+  body::after { animation: none !important; }
+  body .bar { animation: none !important; }
+  body header {
+    animation: headerQuickIn .32s cubic-bezier(.2,.75,.25,1) both !important;
+    animation-delay: 0s !important;
+    will-change: opacity, transform;
+  }
+  body header .hbanner {
+    animation: bannerQuickIn .38s ease-out both !important;
+    animation-delay: 0s !important;
+  }
+  body header>.htxt h1 {
+    animation: textQuickIn .28s ease-out both !important;
+    animation-delay: .06s !important;
+  }
+  body header .htxt .mot {
+    animation: textQuickIn .28s ease-out both, none !important;
+    animation-delay: .1s, 0s !important;
+    background-size: 100% 100% !important;
+  }
+  body header .cr2 { animation: none !important; }
+  header::after { display: none !important; animation: none !important; }
+  @keyframes headerQuickIn {
+    from { opacity: .75; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes bannerQuickIn {
+    from { opacity: .8; }
+    to { opacity: 1; }
+  }
+  @keyframes textQuickIn {
+    from { opacity: .7; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+@media screen and (prefers-reduced-motion: reduce) {
+  body header, body header .hbanner, body header .htxt h1, body header .htxt .mot { animation: none !important; }
+}
+
 </style></head>
 <body>
 <div class="wrap">
